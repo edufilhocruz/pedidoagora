@@ -1,0 +1,32 @@
+# Dependências
+node_modules/
+
+# Arquivos de ambiente com dados sensíveis
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de cobertura de testes
+coverage/
+
+# Diretórios de build
+dist/
+build/
+
+# Arquivos temporários
+tmp/
+temp/
+
+key.pem
+cert.pem

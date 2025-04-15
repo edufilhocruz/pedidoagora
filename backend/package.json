@@ -1,0 +1,40 @@
+{
+  "name": "pedidoagora",
+  "version": "1.0.0",
+  "description": "## 📌 Visão Geral do Projeto",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edufilhocruz/pedidoagora.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edufilhocruz/pedidoagora/issues"
+  },
+  "homepage": "https://github.com/edufilhocruz/pedidoagora#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0",
+    "https": "^1.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.0",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9",
+     "autoprefixer": "^10.4.19",
+  "postcss": "^8.4.38",
+  "tailwindcss": "^3.4.3"
+}
