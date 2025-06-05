@@ -21,17 +21,19 @@ export default function RestaurantsScreen() {
 
         {/* Barra de Pesquisa (estilo iFood) */}
         <div className="grid md:grid-cols-1 gap-2 max-w-xl mx-auto w-full">
-          <div className="flex items-center bg-white border border-gray-300 rounded-full shadow-md px-4 py-3">
+          <div className="flex items-center bg-white border border-gray-300 rounded-full shadow-md px-5 py-2">
             <MapPinIcon className="w-5 h-5 text-red-600 mr-2" />
             <input
               type="text"
               placeholder="Para onde devemos entregar?"
               className="w-full bg-transparent outline-none placeholder-gray-400 text-gray-900 text-base md:text-lg"
             />
+            <div>
+              <button className=" w-24 bg-red-600 text-white font-semibold py-2 rounded-full hover:bg-red-700 transition-colors">
+                Buscar
+              </button>
+            </div>
           </div>
-          <button className="mt-4 w-28 bg-red-600 text-white font-semibold py-4 rounded-full hover:bg-red-700 transition-colors">
-            Buscar
-          </button>
         </div>
         {/* Cards de Restaurantes */}
         <section className='grid m-auto lg:grid-cols-3 md:grid-cols-2 mt-10'>
