@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { UserCircleIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import ThemeAndAccessibility from './ThemeAndAccessibility';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="bg-yellow-100 shadow-md px-6 py-3">
-      <div className="max-w-7xl mx-auto flex items-center justify-between relative h-16">
+      <div className="max-w-7xl  flex items-center justify-between relative h-16">
         
         {/* Left: Mobile Menu Icon + Logo */}
         <div className="flex items-center space-x-4 flex-1">
@@ -27,7 +28,7 @@ export default function Header() {
         </div>
 
         {/* Center: Desktop Menu */}
-        <nav className="hidden lg:flex justify-center flex-1 space-x-[70px] text-red-700 font-semibold text-xl">
+        <nav className="hidden lg:flex justify-center flex-grow-[2] space-x-[60px]  text-red-700 font-semibold text-xl">
           <a href="#">Início</a>
           <a href="#">Combos</a>
           <a href="#">Bebidas</a>
@@ -35,9 +36,16 @@ export default function Header() {
         </nav>
 
         {/* Right: User Icon */}
-        <div className="flex justify-end flex-1">
-          <UserCircleIcon className="h-16 w-10 text-red-700" />
+        <div className="flex justify-end pb-5 ">
+          <Link href="/login">
+          <button className=" mt-4 w-28 bg-red-600 text-white font-semibold py-4 rounded-md hover:bg-red-700 transition-colors">
+            Entrar
+          </button>
+          </Link>
+          {/* <ThemeAndAccessibility/> */}
         </div>
+
+
       </div>
 
       {/* Mobile dropdown menu */}

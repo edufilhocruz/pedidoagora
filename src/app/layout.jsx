@@ -1,4 +1,6 @@
-import "../app/globals.css";
+
+import "../app/globals.css"
+
 
 export const metadata = {
   title: "Pedido Agora",
@@ -15,7 +17,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased">
-        {children}
+            {children}
       </body>
     </html>
   );
