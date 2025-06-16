@@ -71,7 +71,7 @@ export default function RestaurantsScreen() {
         </section>
 
           <div className=' m-2 p-3 items-center justify-center flex flex-col'>
-            <p className='font-bold text-xl'>Os melhores Restaurantes</p>
+            <p className='font-bold text-xl'>Os melhores Restaurantes da Região</p>
           </div>
 
           <section className='flex-1 items-center justify-center flex flex-wrap mt-2'>
