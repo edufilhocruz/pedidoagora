@@ -3,13 +3,12 @@
 import Image from 'next/image';
 import Header from './Header';
 import { MapPinIcon } from '@heroicons/react/24/outline';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import ThemeAndAccessibility from './ThemeAndAccessibility';
-
-
+import CardsRestaurantes from './CardsRestaurantes';
 
 export default function RestaurantsScreen() {
+
+
+
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden relative">
       <Header />
@@ -35,91 +34,7 @@ export default function RestaurantsScreen() {
           </div>
         </div>
         {/* Cards de Restaurantes */}
-        <section className='grid  lg:flex- sm:grid-cols-2  mt-10'>
-          <CardContent className=" lg:  sm:w-auto p-6  justify-center items-center flex ">
-            <div className="">
-              <div className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition duration-300 delay-50 hover:scale-105">
-                <Image
-                  src="/images/Comidaitaliana.jpeg"
-                  alt="Restaurante Exemplo"
-                  width={300}
-                  height={300}
-                  className=" xl:w-full xl:h-full lg:w-full lg:h-40 object-cover rounded-lg"
-                />
-                <p className="text-xl font-light text-gray-500 mt-2 text-center">Restaurantes</p>
-              </div>
-            </div>
-          </CardContent>
-
-
-          <CardContent className="lg:w-full md: sm:w-auto p-2 justify-center items-center flex ">
-            <div className="">
-              <div className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg transition duration-300 delay-50 hover:scale-105 ">
-                <Image
-                  src="/images/Mercado.jpeg"
-                  alt="Restaurante Exemplo"
-                  width={300}
-                  height={300}
-                  className=" xl:w-full xl:h-full lg:h-40 lg:w-full object-cover rounded-lg"
-                />
-                <p className="text-xl font-light text-gray-500 mt-2 text-center">Mercado</p>
-              </div>
-            </div>
-          </CardContent>
-        <section/>
-
-        </section>
-
-          <div className=' m-2 p-3 items-center justify-center flex flex-col'>
-            <p className='font-bold text-xl'>Os melhores Restaurantes da Região</p>
-          </div>
-
-          <section className='flex-1 items-center justify-center flex flex-wrap mt-2'>
-
-          <Card className='w-52 h-24 border-2 border-gray-200 hover:shadow-lg transition duration-300 delay-50 hover:scale-105 rounded-lg m-2'>
-            <CardContent className=''>
-              <div className='flex gap-6 mt-2 items-center justify-center'>
-                <img 
-                src="/images/LogoMcDonald.jpeg" 
-                alt="logomcdonald"
-                width={40}
-                height={40}
-                className='rounded-full ' />
-                <p className=' font-extralight'>Mc donald's</p>
-              </div>
-            </CardContent>
-          </Card>
-
-
-            <Card className='w-52 h-24 border-2 border-gray-200 hover:shadow-lg transition duration-300 delay-50 hover:scale-105 rounded-lg m-2'>
-            <CardContent className=''>
-              <div className='flex items-center justify-center'>
-                <img 
-                src="/images/Sushilogo.jpeg" 
-                alt="logomcdonald" 
-                width={50}
-                height={50}
-                className='rounded-full'/>
-                <p className='mt-2 mx-10 font-extralight'>Sushi</p>
-              </div>
-            </CardContent>
-          </Card>
-            
-
-            <Card className='w-52 h-24 border-2 border-gray-200 hover:shadow-lg transition duration-300 delay-50 hover:scale-105 rounded-lg m-2'>
-            <CardContent className=''>
-              <div className='pt-2 flex gap-4 items-center justify-center'>
-                <img 
-                src="/images/Burguerking.png" 
-                alt="logomcdonald"
-                width={40}
-                height={40}
-                className='rounded-full ' />
-                <p className='md:mr-4 mt-2 font-extralight'>Burguer King</p>
-              </div>
-            </CardContent>
-          </Card>
-          </section>
+        <CardsRestaurantes />
       </main>
     </div>
   );

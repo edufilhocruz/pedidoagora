@@ -29,7 +29,7 @@ export default function Header() {
 
         {/* Center: Desktop Menu */}
         <nav className="hidden lg:flex justify-center flex-grow-[2] space-x-[60px]  text-red-700 font-semibold text-xl">
-          <a href="#">Início</a>
+          <a href="/restaurantes">Início</a>
           <a href="#">Combos</a>
           <a href="#">Bebidas</a>
           <a href="#">Promoções</a>
@@ -51,7 +51,7 @@ export default function Header() {
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div className="lg:hidden mt-4 flex flex-col space-y-2 text-red-700 font-semibold text-center">
-          <a href="#" onClick={toggleMenu}>Início</a>
+          <a href="/restaurantes" onClick={toggleMenu}>Início</a>
           <a href="#" onClick={toggleMenu}>Combos</a>
           <a href="#" onClick={toggleMenu}>Bebidas</a>
           <a href="#" onClick={toggleMenu}>Promoções</a>
