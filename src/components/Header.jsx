@@ -2,33 +2,35 @@
 import { useState } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import ThemeAndAccessibility from './ThemeAndAccessibility';
+//import ThemeAndAccessibility from './ThemeAndAccessibility';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <header className="bg-yellow-100 shadow-md px-6 py-3">
-      <div className="max-w-7xl  flex items-center justify-between relative h-16">
+    <header className="px-6 py-3 bg-yellow-100 shadow-md">
+      <div className="relative flex items-center justify-between h-16 mx-auto max-w-7xl">
         
         {/* Left: Mobile Menu Icon + Logo */}
-        <div className="flex items-center space-x-4 flex-1">
+        <div className="flex items-center space-x-4 lg:flex-1">
           {/* Mobile menu button */}
           <button onClick={toggleMenu} className="block lg:hidden" aria-label="Abrir menu">
-            <Bars3Icon className="h-6 w-6 text-red-700" />
+            <Bars3Icon className="w-6 h-6 text-red-700" />
           </button>
 
           {/* Logo (visível sempre) */}
-          <img
-            src="/images/logo.png"
-            alt="Pedido Agora"
-            className="h-16 w-auto"
-          />
+          <Link href="/" className="flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="Pedido Agora"
+              className="w-auto h-16"
+            />
+          </Link>
         </div>
 
         {/* Center: Desktop Menu */}
-        <nav className="hidden lg:flex justify-center flex-grow-[2] space-x-[60px]  text-red-700 font-semibold text-xl">
+        <nav className="hidden lg:flex justify-center items-center space-x-[60px] text-red-700 font-semibold text-xl">
           <a href="/restaurantes">Início</a>
           <a href="#">Combos</a>
           <a href="#">Bebidas</a>
@@ -36,9 +38,9 @@ export default function Header() {
         </nav>
 
         {/* Right: User Icon */}
-        <div className="flex justify-end pb-5 ">
+        <div className="flex items-center justify-end lg:flex-1">
           <Link href="/login">
-          <button className=" mt-4 w-28 bg-red-600 text-white font-semibold py-4 rounded-md hover:bg-red-700 transition-colors">
+          <button className="py-4 font-semibold text-white transition-colors bg-red-600 rounded-md w-28 hover:bg-red-700">
             Entrar
           </button>
           </Link>
@@ -50,7 +52,7 @@ export default function Header() {
 
       {/* Mobile dropdown menu */}
       {menuOpen && (
-        <div className="lg:hidden mt-4 flex flex-col space-y-2 text-red-700 font-semibold text-center">
+        <div className="flex flex-col mt-4 space-y-2 font-semibold text-center text-red-700 lg:hidden">
           <a href="/restaurantes" onClick={toggleMenu}>Início</a>
           <a href="#" onClick={toggleMenu}>Combos</a>
           <a href="#" onClick={toggleMenu}>Bebidas</a>
