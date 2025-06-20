@@ -1,6 +1,8 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
+import Link from 'next/link';
+
 
 export default function CustomizeCheeseburger() {
   const [portion, setPortion] = useState(1);
@@ -28,6 +30,11 @@ export default function CustomizeCheeseburger() {
   return (
     <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-[120px] flex flex-col gap-12">
       {/* Grid principal */}
+      <Link href="/popularItems">
+            <div className='w-16 h-14 left-0 top-0 '>
+              <Image src="/images/arrow-left.png" alt="Pedido Agora Logo" width={50} height={50} />
+            </div>
+      </Link>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Esquerda */}
         <div className="w-full lg:w-1/2 flex flex-col items-center lg:items-start">
