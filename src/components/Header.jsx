@@ -32,9 +32,9 @@ export default function Header() {
         {/* Center: Desktop Menu */}
         <nav className="hidden lg:flex justify-center items-center space-x-[60px] text-red-700 font-semibold text-xl">
           <a href="/restaurantes">Início</a>
-          <a href="#">Combos</a>
-          <a href="#">Bebidas</a>
-          <a href="#">Promoções</a>
+          <a href="/pageCombo">Combos</a>
+          <a href="/pageBebidas">Bebidas</a>
+          <a href="/pagePromocoes">Promoções</a>
         </nav>
 
         {/* Right: User Icon */}
@@ -54,9 +54,9 @@ export default function Header() {
       {menuOpen && (
         <div className="flex flex-col mt-4 space-y-2 font-semibold text-center text-red-700 lg:hidden">
           <a href="/restaurantes" onClick={toggleMenu}>Início</a>
-          <a href="#" onClick={toggleMenu}>Combos</a>
-          <a href="#" onClick={toggleMenu}>Bebidas</a>
-          <a href="#" onClick={toggleMenu}>Promoções</a>
+          <a href="/pageCombo" onClick={toggleMenu}>Combos</a>
+          <a href="/pageBebidas" onClick={toggleMenu}>Bebidas</a>
+          <a href="/pagePromocoes" onClick={toggleMenu}>Promoções</a>
         </div>
       )}
     </header>

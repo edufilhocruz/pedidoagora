@@ -174,7 +174,6 @@ export default function CadastroForm() {
   };
 
   return (
-  <div className="cadastroform">
     <div className="min-h-screen flex items-center justify-center p-4 relative">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-md w-full">
         <div className="flex justify-center mb-6">
@@ -191,7 +190,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.nomeCompleto && <p className="text-red-600 text-sm">{errors.nomeCompleto}</p>}
           </div>
           <div>
@@ -203,7 +202,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.dataNascimento && <p className="text-red-600 text-sm">{errors.dataNascimento}</p>}
           </div>
           <div>
@@ -231,7 +230,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.nomeMaterno && <p className="text-red-600 text-sm">{errors.nomeMaterno}</p>}
           </div>
           <div>
@@ -244,7 +243,7 @@ export default function CadastroForm() {
               placeholder="XXX.XXX.XXX-XX"
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.cpf && <p className="text-red-600 text-sm">{errors.cpf}</p>}
           </div>
           <div>
@@ -256,7 +255,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
           </div>
           <div>
@@ -282,7 +281,7 @@ export default function CadastroForm() {
               placeholder="(XX)XXXX-XXXX"
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.telefoneFixo && <p className="text-red-600 text-sm">{errors.telefoneFixo}</p>}
           </div>
           <div>
@@ -295,7 +294,7 @@ export default function CadastroForm() {
               placeholder="XXXXX-XXX"
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Endereço Completo</label>
@@ -306,7 +305,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.enderecoCompleto && <p className="text-red-600 text-sm">{errors.enderecoCompleto}</p>}
           </div>
           <div>
@@ -318,7 +317,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.login && <p className="text-red-600 text-sm">{errors.login}</p>}
           </div>
           <div>
@@ -330,7 +329,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.senha && <p className="text-red-600 text-sm">{errors.senha}</p>}
           </div>
           <div>
@@ -342,7 +341,7 @@ export default function CadastroForm() {
               onChange={handleChange}
               className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
               required
-              />
+            />
             {errors.confirmaSenha && <p className="text-red-600 text-sm">{errors.confirmaSenha}</p>}
           </div>
           <div className="space-y-4">
@@ -356,13 +355,12 @@ export default function CadastroForm() {
               type="button"
               onClick={handleClear}
               className="w-full bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 p-3 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition"
-              >
+            >
               Limpar Tela
             </button>
           </div>
         </form>
       </div>
     </div>
-  </div>
   );
 }

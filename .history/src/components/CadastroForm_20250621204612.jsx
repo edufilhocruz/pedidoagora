@@ -174,7 +174,7 @@ export default function CadastroForm() {
   };
 
   return (
-  <div className="cadastroform">
+    <div>
     <div className="min-h-screen flex items-center justify-center p-4 relative">
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-md w-full">
         <div className="flex justify-center mb-6">
