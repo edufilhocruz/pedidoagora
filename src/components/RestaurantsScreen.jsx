@@ -10,10 +10,10 @@ export default function RestaurantsScreen() {
 
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden relative">
+    <div className="min-h-screen dark:bg-gray-900 bg-white text-gray-900 overflow-x-hidden relative">
       <Header />
       <main className="relative max-w-[1440px] mx-auto px-4 py-10">
-        <h1 className="text-2xl md:text-3xl font-bold text-red-700 text-center mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-white text-red-700 text-center mb-6">
           Bateu a fome? Peça Agora, chega já!
         </h1>
 

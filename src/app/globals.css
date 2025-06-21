@@ -7,14 +7,12 @@
 body {
   margin: 0;
   padding: 0;
-}
-
-.login{
   background-image: url('/images/background-pattern.png');
   background-repeat: repeat;
   background-color: #EEDD97;
   transition: background-color 0.3s, color 0.3s;
 }
+
 .space-y-50 > * + * {
   margin-top: 50px;
 }
@@ -61,4 +59,8 @@ input[type="range"]::-moz-range-thumb {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.high-contrast {
+  filter: contrast(150%) brightness(1.2);
 }

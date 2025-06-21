@@ -25,7 +25,7 @@ export default function PopularItems() {
       </div>
 
       {/* Título */}
-      <h2 className="text-center text-[#1F1F1F] font-['Quicksand'] text-[20px] mb-10">
+      <h2 className="text-center dark:text-white text-[#1F1F1F] font-['Quicksand'] text-[20px] mb-10">
         Top 1 mais vendidos - o melhor do nosso cardápio!
       </h2>
 

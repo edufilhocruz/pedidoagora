@@ -10,7 +10,7 @@ export default function CustomizeCheeseburgerPage() {
       </div>
 
       {/* Barra inferior fixa */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#FFEA99] px-4 sm:px-6 py-3 flex items-center justify-between z-auto">
+      <div className="fixed bottom-0 left-0 right-0 dark:bg-gray-950 bg-[#FFEA99] px-4 sm:px-6 py-3 flex items-center justify-between z-auto">
         <div className="flex items-center space-x-4">
           <span className="text-[#EF2A39] font-['Paytone_One'] text-[24px] sm:text-[28px] lg:text-[32px]">
             R$ 14,90

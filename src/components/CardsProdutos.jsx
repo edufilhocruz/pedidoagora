@@ -28,7 +28,7 @@ export default function CardsProduto(){
                     key={index}
                     className="p-12 flex flex-col justify-center items-center h-[300px]"
                     > 
-                    <div className="flex flex-col items-center pb-4 p-2 bg-amber-200/20 rounded-2xl border border-amber-200">
+                    <div className="flex flex-col items-center pb-4 p-2 dark:bg-white dark:border-black bg-amber-200/20 rounded-2xl border border-amber-200">
                         <img
                         src={item.image}
                         alt={item.name}
