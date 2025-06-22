@@ -1,6 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChevronLeftIcon } from './icons';
+import ThemeAndAccessibility from '../../components/ThemeAndAccessibility';
+
+
+
 
 export default function PaymentHeader() {
     return (

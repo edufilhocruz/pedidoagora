@@ -16,8 +16,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="antialiased bg-yellow-50 text-black dark:bg-gray-900 dark:text-white">
-        <ThemeAndAccessibility />
         {children}
+        <ThemeAndAccessibility />
       </body>
     </html>
   );

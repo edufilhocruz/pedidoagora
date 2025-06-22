@@ -1,5 +1,7 @@
 'use client';
 
+
+import ThemeAndAccessibility from '@/components/ThemeAndAccessibility';
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -23,9 +25,10 @@ export default function PaymentRefused() {
 
     return (
         // Container que centraliza o card na tela
-        <div className="flex items-center justify-center w-full min-h-screen p-4 bg-slate-100">
-            {/* O card branco com o conteúdo de erro */}
-            <div className="flex flex-col items-center w-full max-w-md gap-12 p-12 text-center bg-white rounded-lg shadow-xl sm:p-12">
+        <div className="flex items-center justify-center w-full min-h-screen p-4 bg-slate-100 dark:bg-gray-900 transition-all">
+    <ThemeAndAccessibility /> {/* ✅ Acessibilidade adicionada */}
+
+            <div className="flex flex-col items-center w-full max-w-md gap-12 p-12 text-center bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-xl sm:p-12">
                 
                 <ErrorCircleIcon />
 

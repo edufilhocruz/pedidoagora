@@ -1,11 +1,12 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Cog6ToothIcon } from '@heroicons/react/24/outline';
 
 export default function ThemeAndAccessibility() {
+  const [open, setOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
-  const [fontSize, setFontSize] = useState(100); // em %
+  const [fontSize, setFontSize] = useState(100);
 
   const toggleDarkMode = () => {
     const newMode = !isDarkMode;
@@ -31,39 +32,50 @@ export default function ThemeAndAccessibility() {
     document.documentElement.style.fontSize = `${newSize}%`;
   };
 
-  // Reset para garantir que a fonte seja aplicada na primeira renderização
   useEffect(() => {
     document.documentElement.style.fontSize = `${fontSize}%`;
   }, [fontSize]);
 
   return (
-    <div className="fixed top-4 right-4 z-50 flex flex-col space-y-2 bg-gray-100 dark:bg-gray-800 p-3 rounded-md shadow-lg">
+    <div className="fixed z-50 bottom-4 right-4">
       <button
-        onClick={toggleDarkMode}
-        className="bg-white dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
+        onClick={() => setOpen(!open)}
+        className="p-3 rounded-full bg-gray-800 text-white dark:bg-white dark:text-black shadow-lg hover:scale-105 transition"
+        title="Acessibilidade"
       >
-        {isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
+        <Cog6ToothIcon className="w-6 h-6" />
       </button>
-      <button
-        onClick={toggleHighContrast}
-        className="bg-white dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
-      >
-        {highContrast ? 'Contraste Normal' : 'Contraste Alto'}
-      </button>
-      <div className="flex space-x-2">
-        <button
-          onClick={increaseFontSize}
-          className="bg-white dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
-        >
-          A+
-        </button>
-        <button
-          onClick={decreaseFontSize}
-          className="bg-white dark:bg-gray-700 text-black dark:text-white px-3 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600"
-        >
-          A-
-        </button>
-      </div>
+
+      {open && (
+        <div className="absolute bottom-14 right-0 bg-white dark:bg-gray-800 text-black dark:text-white shadow-lg rounded-md p-4 space-y-2 w-48 animate-fadeIn">
+          <button
+            onClick={toggleDarkMode}
+            className="w-full px-3 py-1 text-left rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            {isDarkMode ? '☀ Modo Claro' : '🌙 Modo Escuro'}
+          </button>
+          <button
+            onClick={toggleHighContrast}
+            className="w-full px-3 py-1 text-left rounded hover:bg-gray-100 dark:hover:bg-gray-700"
+          >
+            {highContrast ? 'Contraste normal' : '🔆 Contraste alto'}
+          </button>
+          <div className="flex justify-between">
+            <button
+              onClick={increaseFontSize}
+              className="px-3 py-1 rounded bg-green-500 text-white hover:bg-green-600"
+            >
+              A+
+            </button>
+            <button
+              onClick={decreaseFontSize}
+              className="px-3 py-1 rounded bg-red-500 text-white hover:bg-red-600"
+            >
+              A-
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

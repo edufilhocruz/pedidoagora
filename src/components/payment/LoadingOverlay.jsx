@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 // Componente para o ícone de spinner animado
 const SpinnerIcon = () => (
     <div 

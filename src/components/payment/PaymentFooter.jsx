@@ -1,4 +1,5 @@
 import React from 'react';
+import ThemeAndAccessibility from '@/components/ThemeAndAccessibility';
 
 // Função auxiliar para formatar o valor monetário.
 const formatValue = (value) => {
@@ -18,7 +19,7 @@ export default function PaymentFooter({ total, onPaymentSubmit }) {
             {/* Container do conteúdo:
               - max-w-md: Garante que a largura deste container seja a mesma do card principal.
               - mx-auto: Centraliza este container na tela.
-              - flex, items-center, justify-between: Alinha os itens na vertical e os empurra para as extremidades.
+              - flex, items-center, justify-between: Alianha os itens na vertical e os empurra para as extremidades.
             */}
             <div className="flex items-center justify-between w-full max-w-md p-4 mx-auto">
                 {/* Preço Total */}

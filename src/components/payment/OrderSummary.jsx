@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
 export default function OrderSummary({ subtotal, deliveryFee, total }) {
     // Função para formatar os números como moeda brasileira (BRL)

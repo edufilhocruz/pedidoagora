@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import ThemeAndAccessibility from '@/components/ThemeAndAccessibility'; 
 import { useRouter } from 'next/navigation';
 
 // --- ÍCONE COM TAMANHO AUMENTADO ---
@@ -20,8 +20,10 @@ export default function ConfirmPayment() {
     };
 
     return (
-        <div className="flex items-center justify-center w-full min-h-screen p-4 bg-slate-100">
-            <div className="flex flex-col items-center w-full max-w-md gap-8 p-8 text-center bg-white rounded-lg shadow-xl sm:p-12">
+       <div className="flex items-center justify-center w-full min-h-screen p-4 bg-slate-100 dark:bg-gray-900 transition-all">
+    <ThemeAndAccessibility /> {/*Acessibilidade*/}
+
+            <div className="flex flex-col items-center w-full max-w-md gap-12 p-12 text-center bg-white dark:bg-gray-800 text-black dark:text-white rounded-lg shadow-xl sm:p-12">
                 
                 <CheckCircleIcon />
 
@@ -36,7 +38,7 @@ export default function ConfirmPayment() {
                     </p>
                 </div>
                 
-                {/* --- BOTÃO COM CORES ATUALIZADAS --- */}
+                
                 <button
                     onClick={handleGoBack}
                     className="px-10 py-3 text-lg font-bold text-white transition-colors rounded-lg bg-custom-red-dark hover:bg-red-800"

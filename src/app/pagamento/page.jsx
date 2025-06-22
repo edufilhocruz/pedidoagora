@@ -70,10 +70,13 @@ export default function PagamentoPage() {
 
     return (
         // Layout principal: fundo cinza que centraliza o card branco
-        <div className="flex items-center justify-center w-full min-h-screen p-4 bg-slate-100">
+        <div className="flex items-center justify-center w-full min-h-screen p-4 bg-slate-100 dark:bg-gray-900 transition-all">
+
+        
+
             
             {/* O card principal com largura máxima consistente */}
-            <div className="relative w-full max-w-xl overflow-hidden bg-white rounded-lg shadow-xl pb-28">
+            <div className="relative w-full max-w-xl overflow-hidden bg-white dark:bg-gray-800 text-green dark:text-white rounded-lg shadow-xl pb-28 transition-all">
 
                 <PaymentHeader />
 
