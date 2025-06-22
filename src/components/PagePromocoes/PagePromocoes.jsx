@@ -33,7 +33,7 @@ export default function PopularItems() {
         <h2 className="text-[#3C2F2F] font-['Carter_One'] text-[24px] leading-tight text-center mb-10">
           As Melhores Promoções você Encontra Aqui!
         </h2>
-        <hr class="my-10 border-t-2 border-gray-300"></hr>
+        <hr className="my-10 border-t-2 border-gray-300"></hr>
       </div>
       <div className="">
         <CardsPromocoes/>
