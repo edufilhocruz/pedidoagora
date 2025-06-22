@@ -1,5 +1,6 @@
 import React from 'react';
-import ConfirmPayment from 'src/components/payment/ConfirmPayment.jsx/'; // Verifique se o caminho do import está correto
+// CORREÇÃO: Usando o caminho relativo correto para importar o componente.
+import ConfirmPayment from '../../components/payment/ConfirmPayment';
 
 export default function ConfirmadoPage() {
     return (
