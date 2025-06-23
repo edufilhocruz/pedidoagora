@@ -1,44 +1,42 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+'use client';
 
-export default function OrderSummary({ subtotal, deliveryFee, total }) {
-    // Função para formatar os números como moeda brasileira (BRL)
-    const formatCurrency = (value) => {
-        if (typeof value !== 'number') return 'R$ 0,00';
-        return value.toLocaleString('pt-BR', {
-            style: 'currency',
-            currency: 'BRL',
-        });
-    };
+// Este componente exibe o resumo do pedido, incluindo os itens e os totais.
+export default function OrderSummary({ cartItems = [], subtotal = 0, deliveryFee = 0, total = 0 }) {
+  return (
+    <section className="mb-6">
+      <h2 className="pb-2 mb-4 text-2xl font-semibold border-b-2 border-gray-200 dark:border-gray-600">
+        Resumo do Pedido
+      </h2>
+      
+      {/* Lista de itens do carrinho */}
+      <ul className="mb-4 space-y-3">
+        {cartItems.length > 0 ? (
+          cartItems.map((item, index) => (
+            <li key={index} className="flex justify-between text-gray-800 dark:text-gray-200">
+              <span>{item.name}</span>
+              <span>R$ {item.price.toFixed(2).replace('.', ',')}</span>
+            </li>
+          ))
+        ) : (
+          <p className="text-gray-500 dark:text-gray-400">Nenhum item no carrinho.</p>
+        )}
+      </ul>
 
-    return (
-        // A margem inferior da seção inteira foi aumentada em telas maiores (sm:mb-12)
-        <section className="mb-8 sm:mb-12">
-            {/* O título agora aumenta para text-3xl e tem mais margem em telas maiores */}
-            <h1 className="mb-4 text-2xl font-semibold font-poppins sm:text-3xl sm:mb-6">
-                Resumo do pedido
-            </h1>
-            
-            {/* O tamanho do texto e o espaçamento entre as linhas foram aumentados em telas maiores */}
-            <div className="space-y-3 text-lg sm:text-xl sm:space-y-4 text-custom-zinc">
-                <div className="flex justify-between">
-                    <span>Pedido</span>
-                    <span>{formatCurrency(subtotal)}</span>
-                </div>
-                <div className="flex justify-between">
-                    <span>Taxas de entrega</span>
-                    <span>{formatCurrency(deliveryFee)}</span>
-                </div>
-            </div>
-
-            {/* A linha separadora tem mais margem em telas maiores */}
-            <hr className="my-4 sm:my-6 border-custom-gray-light" />
-            
-            {/* O texto do 'Total' também foi aumentado para sm:text-xl */}
-            <div className="flex justify-between text-lg font-semibold sm:text-xl text-custom-stone">
-                <span>Total:</span>
-                <span>{formatCurrency(total)}</span>
-            </div>
-        </section>
-    );
+      {/* Detalhes de custo */}
+      <div className="pt-4 space-y-2 border-t-2 border-gray-200 dark:border-gray-600">
+        <div className="flex justify-between">
+          <span className="text-gray-600 dark:text-gray-300">Subtotal</span>
+          <span>R$ {subtotal.toFixed(2).replace('.', ',')}</span>
+        </div>
+        <div className="flex justify-between text-gray-600 dark:text-gray-300">
+          <span>Taxa de Entrega</span>
+          <span>R$ {deliveryFee.toFixed(2).replace('.', ',')}</span>
+        </div>
+        <div className="flex justify-between text-xl font-bold">
+          <span>Total</span>
+          <span>R$ {total.toFixed(2).replace('.', ',')}</span>
+        </div>
+      </div>
+    </section>
+  );
 }

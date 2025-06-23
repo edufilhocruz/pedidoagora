@@ -1,20 +1,52 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import ThemeAndAccessibility from './ThemeAndAccessibility'; // ✅ Ativado
+import { useRouter } from 'next/navigation';
+// 1. Reativando o import do ThemeAndAccessibility
+import ThemeAndAccessibility from './ThemeAndAccessibility';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const [userName, setUserName] = useState(null);
+  const router = useRouter();
+
+  // 2. Lógica reativada para ler o nome do usuário do localStorage
+  useEffect(() => {
+    // Usamos um try...catch para que a aplicação não quebre se os dados
+    // no sessionStorage estiverem ausentes ou em um formato inesperado.
+    try {
+      const userDataString = sessionStorage.getItem('userData');
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        // Garante que 'userData' e 'nomeCompleto' existem antes de usá-los
+        if (userData && userData.nomeCompleto) {
+          const firstName = userData.nomeCompleto.split(' ')[0];
+          setUserName(firstName);
+        }
+      }
+    } catch (error) {
+      console.error("Erro ao ler os dados do usuário do sessionStorage:", error);
+      // Se ocorrer um erro, limpa o dado potencialmente corrompido.
+      sessionStorage.removeItem('userData');
+      setUserName(null);
+    }
+    // A dependência vazia [] garante que isso rode apenas uma vez no cliente.
+  }, []);
+
+  // 3. Função de logout reativada
+  const handleLogout = () => {
+    sessionStorage.removeItem('userData');
+    setUserName(null);
+    router.push('/login');
+  };
 
   return (
-    <header className="px-6 py-3 dark:bg-gray-950 bg-yellow-100 shadow-md">
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-yellow-100 shadow-md dark:bg-gray-950">
       <div className="relative flex items-center justify-between h-16 mx-auto max-w-7xl">
         
-        {/* Left: Mobile Menu Icon + Logo */}
         <div className="flex items-center space-x-4 lg:flex-1">
-
           <button onClick={toggleMenu} className="block lg:hidden" aria-label="Abrir menu">
             <Bars3Icon className="w-6 h-6 text-red-700" />
           </button>
@@ -23,39 +55,51 @@ export default function Header() {
             <img
               src="/images/logopedidoagora.png"
               alt="Pedido Agora"
-              className="w-28 lg:w-60"
+              className="w-60 lg:w-96"
             />
           </Link>
         </div>
 
-        {/* Center: Desktop Menu */}
         <nav className="hidden lg:flex dark:bg-gray-950 justify-center items-center space-x-[60px] dark:text-white text-red-700 font-semibold text-xl">
-          <a href="/restaurantes">Início</a>
-          <a href="#">Combos</a>
-          <a href="#">Bebidas</a>a
-          <a href="#">Promoções</a>
+          <Link href="/restaurantes">Início</Link>
+          <Link href="/combos">Combos</Link>
+          <Link href="/pageBebidas">Bebidas</Link>
+          <Link href="/pagePromocoes">Promoções</Link>
         </nav>
 
-        {/* Right: Login + Acessibilidade */}
-        <div className="flex items-center justify-end lg:flex-1 space-x-3">
-          <Link href="/login">
-            <button className="py-4 font-semibold dark:border dark:bg-gray-950 dark:hover:bg-gray-800 text-white transition-colors  bg-red-600 rounded-md w-28 hover:bg-red-700">
-              Entrar
-            </button>
-          </Link>
-          
-          {/* ✅ Botões de acessibilidade aqui */}
+        {/* 4. Lógica de exibição do nome/botão "Sair" ou botão "Entrar" reativada */}
+        <div className="flex items-center justify-end space-x-3 lg:flex-1">
+          {userName ? (
+            <>
+              <span className="hidden font-semibold text-red-700 sm:block dark:text-white">
+                Olá, {userName}
+              </span>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 font-semibold text-white transition-colors bg-red-600 rounded-md sm:py-4 dark:border dark:bg-gray-950 dark:hover:bg-gray-800 sm:w-28 hover:bg-red-700"
+              >
+                Sair
+              </button>
+            </>
+          ) : (
+            <Link href="/login">
+              <button className="px-4 py-2 font-semibold text-white transition-colors bg-red-600 rounded-md sm:py-4 dark:border dark:bg-gray-950 dark:hover:bg-gray-800 sm:w-28 hover:bg-red-700">
+                Entrar
+              </button>
+            </Link>
+          )}
+          {/* 5. Componente ThemeAndAccessibility reativado */}
           <ThemeAndAccessibility />
         </div>
       </div>
 
-      {/* Mobile dropdown menu */}
+      {/* Menu dropdown móvel */}
       {menuOpen && (
-        <div className="flex flex-col mt-4 space-y-2 font-semibold text-center dark:bg-gray-950 text-red-700 lg:hidden">
-          <a href="/restaurantes" onClick={toggleMenu}>Início</a>
-          <a href="#" onClick={toggleMenu}>Combos</a>
-          <a href="#" onClick={toggleMenu}>Bebidas</a>
-          <a href="#" onClick={toggleMenu}>Promoções</a>
+        <div className="flex flex-col mt-4 space-y-2 font-semibold text-center text-red-700 dark:bg-gray-950 lg:hidden">
+          <Link href="/restaurantes" onClick={toggleMenu}>Início</Link>
+          <Link href="/combos" onClick={toggleMenu}>Combos</Link>
+          <Link href="/pageBebidas" onClick={toggleMenu}>Bebidas</Link>
+          <Link href="/pagePromocoes" onClick={toggleMenu}>Promoções</Link>
         </div>
       )}
     </header>

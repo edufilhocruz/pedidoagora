@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 export default function CadastroForm() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    nomeCompleto: '',
+    nome: '',
+    sobrenome: '',
     dataNascimento: '',
     sexo: '',
-    nomeMaterno: '',
     cpf: '',
     email: '',
     telefoneCelular: '',
@@ -106,11 +106,12 @@ export default function CadastroForm() {
   };
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.nomeCompleto) newErrors.nomeCompleto = 'Nome é obrigatório';
-    else if (!/^[a-zA-Z\s]{15,80}$/.test(formData.nomeCompleto)) newErrors.nomeCompleto = 'Nome deve ter 15-80 caracteres alfabéticos';
+    if (!formData.nome) newErrors.nome = 'Nome é obrigatório';
+    else if (!/^[a-zA-Z\s]{2,40}$/.test(formData.nome)) newErrors.nome = 'Nome deve ter de 2 a 40 caracteres.';
+    if (!formData.sobrenome) newErrors.sobrenome = 'Sobrenome é obrigatório';
+    else if (!/^[a-zA-Z\s]{2,80}$/.test(formData.sobrenome)) newErrors.sobrenome = 'Sobrenome deve ter de 2 a 80 caracteres.';
     if (!formData.dataNascimento) newErrors.dataNascimento = 'Data de nascimento é obrigatória';
     if (!formData.sexo) newErrors.sexo = 'Sexo é obrigatório';
-    if (!formData.nomeMaterno) newErrors.nomeMaterno = 'Nome materno é obrigatório';
     if (!formData.cpf) newErrors.cpf = 'CPF é obrigatório';
     else if (!validateCPF(formData.cpf)) newErrors.cpf = 'CPF inválido';
     if (!formData.email) newErrors.email = 'E-mail é obrigatório';
@@ -120,9 +121,10 @@ export default function CadastroForm() {
     else if (!/^\(\d{2}\)\d{4}-\d{4}$/.test(formData.telefoneFixo)) newErrors.telefoneFixo = 'Formato inválido (XX)XXXX-XXXX';
     if (!formData.enderecoCompleto) newErrors.enderecoCompleto = 'Endereço é obrigatório';
     if (!formData.login) newErrors.login = 'Login é obrigatório';
-    else if (!/^[a-zA-Z]{6}$/.test(formData.login)) newErrors.login = 'Login deve ter exatamente 6 caracteres alfabéticos';
+    else if (!/^[a-zA-Z]{6,}$/.test(formData.login)) newErrors.login = 'Login deve ter no mínimo 6 caracteres alfabéticos';
+    // Validação da senha: mínimo 8 caracteres e pelo menos um caractere especial
     if (!formData.senha) newErrors.senha = 'Senha é obrigatória';
-    else if (!/^[a-zA-Z]{8}$/.test(formData.senha)) newErrors.senha = 'Senha deve ter exatamente 8 caracteres alfabéticos';
+    else if (!/^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/.test(formData.senha)) newErrors.senha = 'A senha deve ter no mínimo 8 caracteres e incluir pelo menos um caractere especial.';
     if (formData.senha !== formData.confirmaSenha) newErrors.confirmaSenha = 'Senhas não coincidem';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -130,15 +132,18 @@ export default function CadastroForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
+      // Armazena os dados do usuário no sessionStorage (serão apagados ao fechar a aba/navegador)
+      sessionStorage.setItem('userData', JSON.stringify(formData));
+      // Redireciona para a página de restaurantes
       router.push('/restaurantes');
     }
   };
   const handleClear = () => {
     setFormData({
-      nomeCompleto: '',
+      nome: '',
+      sobrenome: '',
       dataNascimento: '',
       sexo: '',
-      nomeMaterno: '',
       cpf: '',
       email: '',
       telefoneCelular: '',
@@ -153,24 +158,36 @@ export default function CadastroForm() {
     setAddress({});
   };
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 max-w-md w-full">
+    <div className="relative flex items-center justify-center min-h-screen p-4">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <div className="flex justify-center mb-6">
           <Image src="/images/logo.png" alt="Pedido Agora Logo" width={150} height={150} />
         </div>
-        <h1 className="text-2xl font-bold text-center text-red-600 dark:text-red-400 mb-6">Cadastro</h1>
+        <h1 className="mb-6 text-2xl font-bold text-center text-red-600 dark:text-red-400">Cadastro</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome Completo</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome</label>
             <input
               type="text"
-              name="nomeCompleto"
-              value={formData.nomeCompleto}
+              name="nome"
+              value={formData.nome}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.nomeCompleto && <p className="text-red-600 text-sm">{errors.nomeCompleto}</p>}
+            {errors.nome && <p className="text-sm text-red-600">{errors.nome}</p>}
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sobrenome</label>
+            <input
+              type="text"
+              name="sobrenome"
+              value={formData.sobrenome}
+              onChange={handleChange}
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
+              required
+            />
+            {errors.sobrenome && <p className="text-sm text-red-600">{errors.sobrenome}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Data de Nascimento</label>
@@ -179,10 +196,10 @@ export default function CadastroForm() {
               name="dataNascimento"
               value={formData.dataNascimento}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.dataNascimento && <p className="text-red-600 text-sm">{errors.dataNascimento}</p>}
+            {errors.dataNascimento && <p className="text-sm text-red-600">{errors.dataNascimento}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Sexo</label>
@@ -190,7 +207,7 @@ export default function CadastroForm() {
               name="sexo"
               value={formData.sexo}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             >
               <option value="">Selecione</option>
@@ -198,19 +215,7 @@ export default function CadastroForm() {
               <option value="Feminino">Feminino</option>
               <option value="Outro">Outro</option>
             </select>
-            {errors.sexo && <p className="text-red-600 text-sm">{errors.sexo}</p>}
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Nome Materno</label>
-            <input
-              type="text"
-              name="nomeMaterno"
-              value={formData.nomeMaterno}
-              onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
-              required
-            />
-            {errors.nomeMaterno && <p className="text-red-600 text-sm">{errors.nomeMaterno}</p>}
+            {errors.sexo && <p className="text-sm text-red-600">{errors.sexo}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">CPF</label>
@@ -220,10 +225,10 @@ export default function CadastroForm() {
               value={formData.cpf}
               onChange={handleChange}
               placeholder="XXX.XXX.XXX-XX"
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.cpf && <p className="text-red-600 text-sm">{errors.cpf}</p>}
+            {errors.cpf && <p className="text-sm text-red-600">{errors.cpf}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">E-mail</label>
@@ -232,10 +237,10 @@ export default function CadastroForm() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
+            {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefone Celular</label>
@@ -245,10 +250,10 @@ export default function CadastroForm() {
               value={formData.telefoneCelular}
               onChange={handleChange}
               placeholder="(XX)XXXXX-XXXX"
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.telefoneCelular && <p className="text-red-600 text-sm">{errors.telefoneCelular}</p>}
+            {errors.telefoneCelular && <p className="text-sm text-red-600">{errors.telefoneCelular}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Telefone Fixo</label>
@@ -258,10 +263,10 @@ export default function CadastroForm() {
               value={formData.telefoneFixo}
               onChange={handleChange}
               placeholder="(XX)XXXX-XXXX"
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.telefoneFixo && <p className="text-red-600 text-sm">{errors.telefoneFixo}</p>}
+            {errors.telefoneFixo && <p className="text-sm text-red-600">{errors.telefoneFixo}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">CEP</label>
@@ -271,7 +276,7 @@ export default function CadastroForm() {
               value={formData.cep}
               onChange={handleChange}
               placeholder="XXXXX-XXX"
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
           </div>
@@ -282,10 +287,10 @@ export default function CadastroForm() {
               name="enderecoCompleto"
               value={formData.enderecoCompleto}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.enderecoCompleto && <p className="text-red-600 text-sm">{errors.enderecoCompleto}</p>}
+            {errors.enderecoCompleto && <p className="text-sm text-red-600">{errors.enderecoCompleto}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Login</label>
@@ -294,10 +299,10 @@ export default function CadastroForm() {
               name="login"
               value={formData.login}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.login && <p className="text-red-600 text-sm">{errors.login}</p>}
+            {errors.login && <p className="text-sm text-red-600">{errors.login}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Senha</label>
@@ -306,10 +311,10 @@ export default function CadastroForm() {
               name="senha"
               value={formData.senha}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.senha && <p className="text-red-600 text-sm">{errors.senha}</p>}
+            {errors.senha && <p className="text-sm text-red-600">{errors.senha}</p>}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirmação da Senha</label>
@@ -318,22 +323,22 @@ export default function CadastroForm() {
               name="confirmaSenha"
               value={formData.confirmaSenha}
               onChange={handleChange}
-              className="mt-1 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 text-black dark:text-white"
+              className="w-full p-3 mt-1 text-black border border-gray-300 rounded-md dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 bg-yellow-50 dark:bg-gray-700 dark:text-white"
               required
             />
-            {errors.confirmaSenha && <p className="text-red-600 text-sm">{errors.confirmaSenha}</p>}
+            {errors.confirmaSenha && <p className="text-sm text-red-600">{errors.confirmaSenha}</p>}
           </div>
           <div className="space-y-4">
             <button
               type="submit"
-              className="w-full bg-red-600 dark:bg-red-700 text-white p-3 rounded-md hover:bg-red-700 dark:hover:bg-red-600 transition"
+              className="w-full p-3 text-white transition bg-red-600 rounded-md dark:bg-red-700 hover:bg-red-700 dark:hover:bg-red-600"
             >
               Enviar
             </button>
             <button
               type="button"
               onClick={handleClear}
-              className="w-full bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 p-3 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 transition"
+              className="w-full p-3 text-gray-700 transition bg-gray-300 rounded-md dark:bg-gray-600 dark:text-gray-300 hover:bg-gray-400 dark:hover:bg-gray-500"
             >
               Limpar Tela
             </button>
