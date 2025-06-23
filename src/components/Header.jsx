@@ -21,9 +21,9 @@ export default function Header() {
       if (userDataString) {
         const userData = JSON.parse(userDataString);
         // Garante que 'userData' e 'nomeCompleto' existem antes de usá-los
-        if (userData && userData.nomeCompleto) {
-          const firstName = userData.nomeCompleto.split(' ')[0];
-          setUserName(firstName);
+        // Acessa a propriedade 'nome' que é salva no formulário de cadastro
+        if (userData && userData.nome) {
+          setUserName(userData.nome);
         }
       }
     } catch (error) {
