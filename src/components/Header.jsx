@@ -96,10 +96,27 @@ export default function Header() {
       {/* Menu dropdown móvel */}
       {menuOpen && (
         <div className="flex flex-col mt-4 space-y-2 font-semibold text-center text-red-700 dark:bg-gray-950 lg:hidden">
-          <Link href="/restaurantes" onClick={toggleMenu}>Início</Link>
-          <Link href="/combos" onClick={toggleMenu}>Combos</Link>
-          <Link href="/pageBebidas" onClick={toggleMenu}>Bebidas</Link>
-          <Link href="/pagePromocoes" onClick={toggleMenu}>Promoções</Link>
+          {/* Usamos <a> tags com onClick para garantir que o menu feche e a navegação ocorra explicitamente */}
+          <a href="/restaurantes" onClick={(e) => {
+            e.preventDefault(); // Previne o comportamento padrão do link
+            toggleMenu(); // Fecha o menu
+            router.push('/restaurantes'); // Navega programaticamente
+          }}>Início</a>
+          <a href="/combos" onClick={(e) => {
+            e.preventDefault();
+            toggleMenu();
+            router.push('/combos');
+          }}>Combos</a>
+          <a href="/pageBebidas" onClick={(e) => {
+            e.preventDefault();
+            toggleMenu();
+            router.push('/pageBebidas');
+          }}>Bebidas</a>
+          <a href="/pagePromocoes" onClick={(e) => {
+            e.preventDefault();
+            toggleMenu();
+            router.push('/pagePromocoes');
+          }}>Promoções</a>
         </div>
       )}
     </header>
