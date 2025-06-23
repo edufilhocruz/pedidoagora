@@ -20,6 +20,8 @@ module.exports = {
         'custom-gray-light': '#F0F0F0',
         'custom-gray-bg': '#F3F4F6',
         'custom-orange': '#FC8A18',
+        // ADIÇÃO: Cor amarela para o fundo do header
+        'custom-yellow-light': '#FEFBEB', // Tom similar ao 'yellow-100' do Tailwind
       },
       // TODAS as fontes
       fontFamily: {

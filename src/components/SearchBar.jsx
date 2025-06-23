@@ -1,43 +1,33 @@
-import React from 'react';
+'use client';
 
-// Componente para o ícone de busca (SVG)
-// Você pode usar um ícone da biblioteca Heroicons ou qualquer outro SVG de sua preferência.
+import { useState } from 'react';
+
+// Ícone de busca (Heroicon)
 const SearchIcon = () => (
-  <svg
-    className="h-5 w-5 text-gray-500" // Cor e tamanho do ícone
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 20 20"
-    fill="currentColor"
-    aria-hidden="true"
-  >
-    <path
-      fillRule="evenodd"
-      d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-      clipRule="evenodd"
-    />
-  </svg>
+    <svg className="w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+        <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
+    </svg>
 );
 
 export default function SearchBar() {
-  return (
-    <div className="absolute left-[435px] top-[199px] w-[589px] h-[58px]
-                    bg-white shadow-md rounded-lg
-                    flex items-center
-                    px-4 space-x-3">{/* Padding e espaçamento para o ícone */}
-      
-      {/* Ícone de Busca */}
-      <SearchIcon />
+  // Estado para guardar o que o usuário digita
+  const [searchTerm, setSearchTerm] = useState('');
 
-      {/* Campo de Input */}
-      <input
-        type="text"
-        placeholder="Buscar pratos, estabelecimentos..." // Texto de exemplo do iFood
-        className="flex-1 h-full // Ocupa o espaço restante e altura total
-                   font-['Quicksand'] text-base text-gray-700 // Fonte, tamanho e cor do texto digitado
-                   placeholder-gray-500 // Cor do texto do placeholder
-                   bg-transparent // Fundo transparente, pois o div pai já tem cor
-                   outline-none" // Remove a borda de foco padrão
-      />
+  return (
+    // Layout responsivo: centralizado e com largura máxima
+    <div className="w-full max-w-2xl mx-auto">
+      
+      {/* Container do input e do ícone, agora ocupando toda a largura */}
+      <div className="flex items-center w-full px-4 py-3 space-x-3 bg-white rounded-full shadow-md">
+        <SearchIcon />
+        <input
+          type="text"
+          placeholder="Buscar pratos, estabelecimentos..."
+          className="w-full h-full font-['Quicksand'] text-base text-gray-700 placeholder-gray-500 bg-transparent outline-none"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
     </div>
   );
 }

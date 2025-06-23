@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-// 1. Reativando o import do ThemeAndAccessibility
 import ThemeAndAccessibility from './ThemeAndAccessibility';
 
 export default function Header() {
@@ -12,43 +11,42 @@ export default function Header() {
   const [userName, setUserName] = useState(null);
   const router = useRouter();
 
-  // 2. Lógica reativada para ler o nome do usuário do localStorage
   useEffect(() => {
-    // Usamos um try...catch para que a aplicação não quebre se os dados
-    // no sessionStorage estiverem ausentes ou em um formato inesperado.
     try {
       const userDataString = sessionStorage.getItem('userData');
       if (userDataString) {
         const userData = JSON.parse(userDataString);
-        // Garante que 'userData' e 'nomeCompleto' existem antes de usá-los
-        // Acessa a propriedade 'nome' que é salva no formulário de cadastro
         if (userData && userData.nome) {
           setUserName(userData.nome);
         }
       }
     } catch (error) {
       console.error("Erro ao ler os dados do usuário do sessionStorage:", error);
-      // Se ocorrer um erro, limpa o dado potencialmente corrompido.
       sessionStorage.removeItem('userData');
       setUserName(null);
     }
-    // A dependência vazia [] garante que isso rode apenas uma vez no cliente.
   }, []);
 
-  // 3. Função de logout reativada
   const handleLogout = () => {
     sessionStorage.removeItem('userData');
     setUserName(null);
     router.push('/login');
   };
 
+  // --- FUNÇÃO PARA NAVEGAÇÃO MOBILE ---
+  // Esta função garante que o menu feche ANTES de navegar.
+  const handleMobileNav = (path) => {
+    toggleMenu(); // Fecha o menu
+    router.push(path); // Navega para a página desejada
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-6 py-3 bg-yellow-100 shadow-md dark:bg-gray-950">
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 py-3 shadow-md bg-custom-yellow-light dark:bg-gray-950">
       <div className="relative flex items-center justify-between h-16 mx-auto max-w-7xl">
         
         <div className="flex items-center space-x-4 lg:flex-1">
           <button onClick={toggleMenu} className="block lg:hidden" aria-label="Abrir menu">
-            <Bars3Icon className="w-6 h-6 text-red-700" />
+            <Bars3Icon className="w-6 h-6 text-custom-red-dark" />
           </button>
 
           <Link href="/" className="flex items-center">
@@ -60,63 +58,45 @@ export default function Header() {
           </Link>
         </div>
 
-        <nav className="hidden lg:flex dark:bg-gray-950 justify-center items-center space-x-[60px] dark:text-white text-red-700 font-semibold text-xl">
+        <nav className="hidden lg:flex dark:bg-gray-950 justify-center items-center space-x-[60px] dark:text-white text-custom-red-dark font-semibold text-xl">
           <Link href="/restaurantes">Início</Link>
           <Link href="/combos">Combos</Link>
-          <Link href="/pageBebidas">Bebidas</Link>
-          <Link href="/pagePromocoes">Promoções</Link>
+          <Link href="/bebidas">Bebidas</Link>
+          <Link href="/promocoes">Promoções</Link>
         </nav>
 
-        {/* 4. Lógica de exibição do nome/botão "Sair" ou botão "Entrar" reativada */}
         <div className="flex items-center justify-end space-x-3 lg:flex-1">
           {userName ? (
             <>
-              <span className="hidden font-semibold text-red-700 sm:block dark:text-white">
+              <span className="hidden font-semibold sm:block text-custom-red-dark dark:text-white">
                 Olá, {userName}
               </span>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 font-semibold text-white transition-colors bg-red-600 rounded-md sm:py-4 dark:border dark:bg-gray-950 dark:hover:bg-gray-800 sm:w-28 hover:bg-red-700"
+                className="px-4 py-2 font-semibold text-white transition-colors rounded-md bg-custom-red sm:py-4 dark:border dark:bg-gray-950 dark:hover:bg-gray-800 sm:w-28 hover:bg-custom-red-dark"
               >
                 Sair
               </button>
             </>
           ) : (
             <Link href="/login">
-              <button className="px-4 py-2 font-semibold text-white transition-colors bg-red-600 rounded-md sm:py-4 dark:border dark:bg-gray-950 dark:hover:bg-gray-800 sm:w-28 hover:bg-red-700">
+              <button className="px-4 py-2 font-semibold text-white transition-colors rounded-md bg-custom-red sm:py-4 dark:border dark:bg-gray-950 dark:hover:bg-gray-800 sm:w-28 hover:bg-custom-red-dark">
                 Entrar
               </button>
             </Link>
           )}
-          {/* 5. Componente ThemeAndAccessibility reativado */}
           <ThemeAndAccessibility />
         </div>
       </div>
 
-      {/* Menu dropdown móvel */}
+      {/* --- MENU MOBILE --- */}
       {menuOpen && (
-        <div className="flex flex-col mt-4 space-y-2 font-semibold text-center text-red-700 dark:bg-gray-950 lg:hidden">
-          {/* Usamos <a> tags com onClick para garantir que o menu feche e a navegação ocorra explicitamente */}
-          <a href="/restaurantes" onClick={(e) => {
-            e.preventDefault(); // Previne o comportamento padrão do link
-            toggleMenu(); // Fecha o menu
-            router.push('/restaurantes'); // Navega programaticamente
-          }}>Início</a>
-          <a href="/combos" onClick={(e) => {
-            e.preventDefault();
-            toggleMenu();
-            router.push('/combos');
-          }}>Combos</a>
-          <a href="/pageBebidas" onClick={(e) => {
-            e.preventDefault();
-            toggleMenu();
-            router.push('/pageBebidas');
-          }}>Bebidas</a>
-          <a href="/pagePromocoes" onClick={(e) => {
-            e.preventDefault();
-            toggleMenu();
-            router.push('/pagePromocoes');
-          }}>Promoções</a>
+        <div className="flex flex-col mt-4 space-y-1 font-semibold text-center bg-custom-yellow-light text-custom-red-dark dark:bg-gray-950 lg:hidden">
+          {/* Botões que chamam a função de navegação, tornando a ação mais explícita */}
+          <button onClick={() => handleMobileNav('/restaurantes')} className="w-full px-4 py-3 text-left">Início</button>
+          <button onClick={() => handleMobileNav('/combos')} className="w-full px-4 py-3 text-left">Combos</button>
+          <button onClick={() => handleMobileNav('/bebidas')} className="w-full px-4 py-3 text-left">Bebidas</button>
+          <button onClick={() => handleMobileNav('/promocoes')} className="w-full px-4 py-3 text-left">Promoções</button>
         </div>
       )}
     </header>
